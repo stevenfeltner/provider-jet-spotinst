@@ -23,12 +23,13 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/crossplane-contrib/provider-jet-template/config/null"
+    "github.com/stevenfeltner/provider-jet-spotinst/config/ocean_aws"
+    "github.com/stevenfeltner/provider-jet-spotinst/config/ocean_aws_launch_spec"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "spotinst"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-spotinst"
 )
 
 //go:embed schema.json
@@ -44,11 +45,16 @@ func GetProvider() *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+        tjconfig.WithIncludeList([]string{
+            "spotinst_ocean_aws$",
+            "spotinst_ocean_aws_launch_spec$",
+        }))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		ocean_aws.Configure,
+		ocean_aws_launch_spec.Configure,
 	} {
 		configure(pc)
 	}

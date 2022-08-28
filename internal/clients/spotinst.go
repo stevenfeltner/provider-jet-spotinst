@@ -27,16 +27,21 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/terraform"
 
-	"github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	"github.com/stevenfeltner/provider-jet-spotinst/apis/v1alpha1"
 )
 
 const (
+    keyToken = "token"
+    keyAccount = "account"
+
+    envToken = "SPOTINST_TOKEN"
+    envAccount = "SPOTINST_ACCOUNT"
 	// error messages
 	errNoProviderConfig     = "no providerConfigRef provided"
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal spotinst credentials as JSON"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -69,24 +74,18 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		templateCreds := map[string]string{}
-		if err := json.Unmarshal(data, &templateCreds); err != nil {
+		spotinstCreds := map[string]string{}
+		if err := json.Unmarshal(data, &spotinstCreds); err != nil {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// set environment variables for sensitive provider configuration
-		// Deprecated: In shared gRPC mode we do not support injecting
-		// credentials via the environment variables. You should specify
-		// credentials via the Terraform main.tf.json instead.
-		/*ps.Env = []string{
-			fmt.Sprintf("%s=%s", "HASHICUPS_USERNAME", templateCreds["username"]),
-			fmt.Sprintf("%s=%s", "HASHICUPS_PASSWORD", templateCreds["password"]),
-		}*/
-		// set credentials in Terraform provider configuration
-		/*ps.Configuration = map[string]interface{}{
-			"username": templateCreds["username"],
-			"password": templateCreds["password"],
-		}*/
-		return ps, nil
+        // set provider configuration
+        // set environment variables for sensitive provider configuration
+        ps.Env = []string{
+            fmt.Sprintf(fmtEnvVar, envToken, spotinstCreds[keyToken]),
+            fmt.Sprintf(fmtEnvVar, envAccount, spotinstCreds[keyAccount]),
+        }
+        return ps, nil
+
 	}
 }

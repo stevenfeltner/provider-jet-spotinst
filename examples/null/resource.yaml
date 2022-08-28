@@ -1,4 +1,4 @@
-apiVersion: null.template.jet.crossplane.io/v1alpha1
+apiVersion: null.spotinst.jet.crossplane.io/v1alpha1
 kind: Resource
 metadata:
   name: example

@@ -2,18 +2,18 @@
 apiVersion: pkg.crossplane.io/v1alpha1
 kind: ControllerConfig
 metadata:
-  name: jet-template-config
+  name: jet-spotinst-config
   labels:
-    app: crossplane-provider-jet-template
+    app: crossplane-provider-jet-spotinst
 spec:
-  image: crossplane/provider-jet-template-controller:v0.1.0
+  image: crossplane/provider-jet-spotinst-controller:v0.1.0
   args: ["-d"]
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: crossplane-provider-jet-template
+  name: crossplane-provider-jet-spotinst
 spec:
-  package: crossplane/provider-jet-template:v0.1.0
+  package: crossplane/provider-jet-spotinst:v0.1.0
   controllerConfigRef:
-    name: jet-template-config
+    name: jet-spotinst-config
