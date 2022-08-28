@@ -25,7 +25,7 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/pipeline"
 
-	"github.com/crossplane-contrib/provider-jet-spotinst/config"
+	"github.com/stevenfeltner/provider-jet-spotinst/config"
 )
 
 func main() {

@@ -36,12 +36,12 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-jet-spotinst/apis"
-	"github.com/crossplane-contrib/provider-jet-spotinst/apis/v1alpha1"
-	"github.com/crossplane-contrib/provider-jet-spotinst/config"
-	"github.com/crossplane-contrib/provider-jet-spotinst/internal/clients"
-	"github.com/crossplane-contrib/provider-jet-spotinst/internal/controller"
-	"github.com/crossplane-contrib/provider-jet-spotinst/internal/features"
+	"github.com/stevenfeltner/provider-jet-spotinst/apis"
+	"github.com/stevenfeltner/provider-jet-spotinst/apis/v1alpha1"
+	"github.com/stevenfeltner/provider-jet-spotinst/config"
+	"github.com/stevenfeltner/provider-jet-spotinst/internal/clients"
+	"github.com/stevenfeltner/provider-jet-spotinst/internal/controller"
+	"github.com/stevenfeltner/provider-jet-spotinst/internal/features"
 )
 
 func main() {

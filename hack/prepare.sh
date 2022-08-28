@@ -26,6 +26,7 @@ git grep -l 'Template' -- ${REPLACE_FILES} | xargs sed -i.bak "s/Template/${Prov
 # We need to be careful while replacing "template" keyword in go.mod as it could tamper
 # some imported packages under require section.
 sed -i.bak "s/provider-jet-template/provider-jet-${ProviderNameLower}/g" go.mod
+git grep -l 'crossplane-contrib' -- ${REPLACE_FILES} | xargs sed -i.bak "s/crossplane-contrib/stevenfeltner/g"
 
 # Clean up the .bak files created by sed
 git clean -fd

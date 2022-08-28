@@ -29,7 +29,7 @@ import (
 
 const (
 	resourcePrefix = "spotinst"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-spotinst"
+	modulePath     = "github.com/stevenfeltner/provider-jet-spotinst"
 )
 
 //go:embed schema.json
